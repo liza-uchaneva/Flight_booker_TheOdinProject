@@ -1,0 +1,16 @@
+<%= link_to  "Index", events_path %>
+<% if user_signed_in? %>
+  <%= link_to  "Sign out", destroy_user_session_path %>
+<% end %>
+
+<% @bookings.each do |booking| %>
+  <div><%= link_to "Booking:", booking %></div>
+  <div> Flight detail: <%= booking.flight.flight_detail %></div> 
+  <% booking.passengers.each do |passenger| %>
+    <div> Ticket infor: </div>
+    <div> Name: <%= passenger.name %></div>    
+    <div> Email: <%= passenger.email %></div>  
+    <br>  
+  <% end %>
+  <hr>
+<% end %> 

@@ -1,0 +1,23 @@
+<%= form_with model: @flight, method: :get do |f| %>
+  <h3>Search your flight now</h3>
+  <div>
+    <%= f.label :departure_airport_id %>
+    <%= f.select :departure_airport_id, @airport_options %>
+  </div>
+  <div>
+    <%= f.label :arrival_airport_id %>
+    <%= f.select :arrival_airport_id, @airport_options %>
+  </div>
+  <div>
+    <%= label_tag :number_of_seats, "Number of passengers" %>
+    <%= f.hidden_field(:tickets, value: @passengers)%>
+    <%= f.select :number_of_seats, options_for_select([1,2,3,4], params[:number_of_seats]), {}, { class: "custom-select" } %>
+  </div>
+  <div>
+    <%= f.label :date %>
+    <%= f.date_field :date %>
+  </div>
+  <div>
+    <%= f.submit "Search Flights" %>
+  </div>
+<% end %>

@@ -1,0 +1,18 @@
+
+<%= render partial: 'search_form'%>
+
+<% if params[:commit]%>
+  <% if @flight_search_results.size.zero?%>
+    <td>No flights matching these parameters are currently available. 
+    Please initiate a new search to explore all the top options.</td>
+  <%else%>
+    <%= form_with model: @booking, url: new_booking_path, method: :get do |form|%>
+      <%= form.collection_radio_buttons :selected_flight, @flight_search_results, :id, :flight_detail do |f|%>
+        <%= f.radio_button + f.label %><br>
+      <% end %> 
+      <%= form.hidden_field :number_of_seats, value: params[:number_of_seats] %>
+      <%= submit_tag "Book Flight" %>
+    <%end%>
+  <% end %>
+
+<% end %>
