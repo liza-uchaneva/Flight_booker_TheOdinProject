@@ -10,8 +10,6 @@ class BookingsController < ApplicationController
       @number_of_seats.times do
         @booking.passengers.build
       end
-      logger.info "new action"
-      logger.info "#{@booking.passengers.size}"
     else
       redirect_to flights_path
     end
@@ -19,8 +17,7 @@ class BookingsController < ApplicationController
 
   def create
     logger.info "it is rendered to crete!"
-    @booking = Booking.new(passengers_params)
-    logger.info "#{@booking.passengers.size}"
+    @booking = current_user.bookings.build(booking_params)
     @flight = Flight.find(@booking.flight_id)
 
     logger.info "it created booking and flight!"
@@ -41,12 +38,9 @@ class BookingsController < ApplicationController
 
   def show
     logger.info "It is in show method!"
-    if Booking.exists?(params[:id])
-      logger.info "Booking is exist!"
-      @booking = Booking.find(params[:id])    
-      @passengers = @booking.passengers
-    else
-      redirect_to flights_path
+    @booking = Booking.find(params[:id])
+    if @booking.user != current_user
+      redirect_to root_path
     end
   end
 
@@ -56,6 +50,6 @@ class BookingsController < ApplicationController
   end
 
   def booking_params
-    params.require(:booking).permit(:flight_id, :user_id, passenger_attributes: [:id,:name, :email])  
+    params.require(:booking).permit(:flight_id, :user_id, tickets_attributes: [passenger_attributes: [:id, :name, :email]])  
   end
 end
