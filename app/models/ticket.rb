@@ -1,6 +1,6 @@
 class Ticket < ApplicationRecord
-    belongs_to :passenger
     belongs_to :booking
 
-    accepts_nested_attributes_for :passenger
+    validates :passenger_name, presence: true
+    validates :passenger_email, presence: true
 end

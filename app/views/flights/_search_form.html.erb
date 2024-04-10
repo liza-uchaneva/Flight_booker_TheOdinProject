@@ -10,7 +10,6 @@
   </div>
   <div>
     <%= label_tag :number_of_seats, "Number of passengers" %>
-    <%= f.hidden_field(:tickets, value: @passengers)%>
     <%= f.select :number_of_seats, options_for_select([1,2,3,4], params[:number_of_seats]), {}, { class: "custom-select" } %>
   </div>
   <div>

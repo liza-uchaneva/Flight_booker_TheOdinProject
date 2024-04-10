@@ -4,12 +4,12 @@
 <h1>Booking Details</h1>
 <h2><%=@booking.flight.flight_detail%></h2>
 <p><strong>Passengers</strong></p>
-<% @booking.passengers.each_with_index do |passenger,index|%>
+<% @booking.tickets.each_with_index do |ticket, index|%>
   <div>
     <p>
-        Passenger num<%= i+1%><br>
-        Name: <%= passenger.name %><br>
-        Email: <%= passenger.email %><br>
+        Passenger <%= index + 1%><br>
+        Name: <%= ticket.passenger_name %><br>
+        Email: <%= ticket.passenger_email %><br>
     </p>
   </div>
 <%end%>

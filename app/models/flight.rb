@@ -4,7 +4,6 @@ class Flight < ApplicationRecord
 
     has_many :bookings
     has_many :tickets, through: :bookings, source: :tickets
-    has_many :passengers, through: :tickets, source: :passenger
 
     validates :start, :duration, presence: true
 

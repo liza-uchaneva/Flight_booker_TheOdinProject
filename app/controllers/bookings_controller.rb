@@ -6,9 +6,10 @@ class BookingsController < ApplicationController
       @flight = Flight.find(params[:selected_flight])  
       @selected_flight = @flight.id
       @booking = Booking.new
+
       @number_of_seats = params[:number_of_seats].to_i
       @number_of_seats.times do
-        @booking.passengers.build
+        @booking.tickets.build
       end
     else
       redirect_to flights_path
@@ -25,9 +26,9 @@ class BookingsController < ApplicationController
     if @booking.save!
       logger.info "it is saved booking!"
 
-      # @booking.passengers.each do |passenger|
-      #   PassengerMailer.confirmation_email(@booking, passenger).deliver_now
-      # end
+      @booking.tickets.each do |ticket|
+        TicketMailer.confirmation_email(@booking, ticket).deliver_now
+      end
       redirect_to booking_path(@booking)
     else
       logger.info "#{@booking.errors.full_messages}"
@@ -45,11 +46,8 @@ class BookingsController < ApplicationController
   end
 
   private
-  def passengers_params
-    params.require(:booking).permit(:flight_id, passengers_attributes: [:id, :name, :email])
-  end
 
   def booking_params
-    params.require(:booking).permit(:flight_id, :user_id, tickets_attributes: [passenger_attributes: [:name, :email]])  
+    params.require(:booking).permit(:flight_id, :user_id, tickets_attributes: [:passenger_name, :passenger_email])  
   end
 end

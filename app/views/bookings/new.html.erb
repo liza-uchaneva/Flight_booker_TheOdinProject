@@ -4,10 +4,8 @@
 <div><%= @flight.flight_detail %></div>
 
 <%= form_with model: @booking do |f| %>
- <%= f.fields_for :tickets do |ticket_form| %>
-    <%= ticket_form.fields_for :passengers do |passenger_form| %>
-      <%= render partial: "passenger_fields", locals: { passenger_form: passenger_form, index: passenger_form.index}%>
-    <% end %>
+  <%= f.fields_for :tickets do |ticket_form| %>
+    <%= render partial: "ticket_fields", locals: { ticket_form: ticket_form, index: ticket_form.index}%>
   <% end %>
 <%= f.hidden_field :flight_id, value: params[:selected_flight] %>
 <%= f.submit%>
