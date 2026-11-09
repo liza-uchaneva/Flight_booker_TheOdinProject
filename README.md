@@ -1,25 +1,35 @@
-# README
+# Flight Booker
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A flight search and booking app built with Ruby on Rails, part of the [The Odin Project](https://www.theodinproject.com/) Rails curriculum.
 
-Things you may want to cover:
+## Features
 
-* Ruby version
+- Search flights by departure airport, arrival airport, date and number of passengers
+- Book a flight for several passengers at once, entering each passenger's name and email in one form
+- A confirmation email is sent to every passenger (Action Mailer)
+- User accounts with **Devise**, plus a user page showing your bookings
+- Seeded with 12 California airports
 
-* System dependencies
+## What I practiced
 
-* Configuration
+- Self-referential associations: an `Airport` has `departing_flights` and `arriving_flights`
+- `has_many :through` (users → bookings → tickets)
+- Nested forms with `accepts_nested_attributes_for`
+- GET search forms that filter with query params
+- Sending mail from a controller action
 
-* Database creation
+## Tech stack
 
-* Database initialization
+Ruby on Rails 7.1 · SQLite · Devise · Hotwire (Turbo + Stimulus) · Importmap · Action Mailer
 
-* How to run the test suite
+## Running locally
 
-* Services (job queues, cache servers, search engines, etc.)
+Requires Ruby 3.2.2.
 
-* Deployment instructions
+```bash
+bundle install
+bin/rails db:setup
+bin/rails server
+```
 
-* ...
-# Flight_booker_TheOdinProject
+Then open http://localhost:3000.
